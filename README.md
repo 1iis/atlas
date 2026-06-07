@@ -2,8 +2,11 @@
 
 > Atlas is a system for mapping and understanding codebases. Its first target is repository-level orientation: producing compact, accurate, information-rich cards and views that help a human or LLM understand what a repo is, how it works, whether it is useful, and where to begin reading.
 
-
-
+> [!IMPORTANT]
+> Built for **Python** code first.  
+> More languages to come; quality may depend on introspection features and/or the availability of language analysis tools.
+>
+> The project is nowhere near stable enough to warrant contributions yet, but when that day comes, the power of crowds can shine in bridging Atlas with every language under the sun, and in refining hybrid codebases analysis.
 
 
 ---
