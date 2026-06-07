@@ -1,4 +1,4 @@
-"""Atlas — maps for codebases."""
+"""Atlas: maps for codebases."""
 
 __version__ = "0.0.1"
 
