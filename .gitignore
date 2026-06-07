@@ -6,6 +6,7 @@ dist/
 
 # 1iis
 #.atlas/
+tmp/
 
 # Solveit
 .ipynb
