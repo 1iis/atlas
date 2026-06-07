@@ -1,5 +1,7 @@
+"""Atlas — maps for codebases."""
+
 __version__ = "0.0.1"
 
-def main() -> None:
-    """CLI entry point. Replace with actual logic."""
-    print(f"{__package__} v{__version__}")
+from .cli import main
+
+__all__ = ["main"]
