@@ -5,7 +5,7 @@ dist/
 *.egg-info/
 
 # 1iis
-.atlas/
+#.atlas/
 
 # Solveit
 .ipynb

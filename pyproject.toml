@@ -1,17 +1,22 @@
 [project]
-name = "my-package"                          # <-- EDIT THIS per project
+name = "atlas"
 dynamic = ["version"]
 description = "One thing, done well."
 readme = "README.md"
+requires-python = ">=3.9"
 license = {text = "Apache-2.0"}
-requires-python = ">=3.10"
-dependencies = []
+authors = [{name = "Kit Ledru", email = "info@1i.is"}]
+keywords = ['repository', 'codebase', 'exploration', 'mapping', 'understanding']
+dependencies = [
+    "fastgit",
+    "ghapi",
+]
 
 [tool.hatch.version]
-path = "src/my_package/__init__.py"
+path = "src/atlas/__init__.py"
 
 [project.scripts]
-my-package = "my_package:main"               # <-- EDIT THIS per project
+atlas = "atlas:main"
 
 [dependency-groups]
 dev = [
