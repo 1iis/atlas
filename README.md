@@ -37,7 +37,7 @@
 >    Check that it works:
 >    ```bash
 >    cd $some_repo
->    atlas version
+>    atlas
 >    # You may need to add uv's tool exec dir to your PATH
 >    uv tool update-shell
 >    ```
