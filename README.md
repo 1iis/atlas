@@ -11,10 +11,6 @@
 > [!TIP]
 > ## `uv` lifecycle
 > 
-> Here's the KISS `uv` lifecycle for the template, from zero to shipped.  
-> There's no `.venv` folder, no activation, no `pip`, no `pyenv`.  
-> `uv` handles everything implicitly.
-> 
 > ### Setup
 > 
 > ```bash
