@@ -43,6 +43,24 @@ def has_path(repo: Path, path: str) -> bool:
     return (repo / path).exists()
 
 
+def package_dirs(repo: Path) -> list[Path]:
+    return sorted(
+        [
+            p
+            for p in repo.iterdir()
+            if p.is_dir()
+            and not p.name.startswith(".")
+            and p.name not in SKIP_DIRS
+            and (p / "__init__.py").exists()
+        ],
+        key=lambda p: p.name.lower(),
+    )
+
+
+def package_dir_names(repo: Path) -> list[str]:
+    return [p.name for p in package_dirs(repo)]
+
+
 def imports_in_file_split(path: Path) -> tuple[Counter, Counter]:
     try:
         tree = ast.parse(path.read_text(encoding="utf-8"))
@@ -80,7 +98,7 @@ def repo_imports_split(repo: Path) -> tuple[Counter, Counter]:
 
 
 def read_version(repo: Path) -> str | None:
-    for p in [repo / repo.name / "__init__.py", repo / "__init__.py"]:
+    for p in [*(pkg / "__init__.py" for pkg in package_dirs(repo)), repo / "__init__.py"]:
         if not p.exists():
             continue
         for line in p.read_text(encoding="utf-8", errors="replace").splitlines():
@@ -90,7 +108,7 @@ def read_version(repo: Path) -> str | None:
 
 
 def read_modidx(repo: Path) -> dict:
-    for p in [repo / repo.name / "_modidx.py", repo / "_modidx.py"]:
+    for p in [*(pkg / "_modidx.py" for pkg in package_dirs(repo)), repo / "_modidx.py"]:
         if not p.exists():
             continue
 
@@ -146,6 +164,9 @@ def importable_names(repo: Path) -> set[str]:
 
     if name:
         names.add(name.replace("-", "_").lower())
+
+    for pkg in package_dirs(repo):
+        names.add(pkg.name)
 
     for p in repo.iterdir():
         if p.is_dir() and (p / "__init__.py").exists():
@@ -210,6 +231,7 @@ def repo_card(repo: str | Path, topn: int = 12) -> dict:
         "path": str(repo),
         "project_name": name,
         "description": desc,
+        "package_dirs": package_dir_names(repo),
         "version": version,
         "nbdev": modidx["nbdev"],
         "exports_count": modidx["exports_count"],

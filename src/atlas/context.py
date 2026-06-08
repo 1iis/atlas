@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from .cards import card_markdown, repo_card
+from .cards import card_markdown, package_dirs, repo_card
 from .git import git_markdown
 from .github import github_markdown
 from .tree import repo_tree
@@ -40,13 +40,17 @@ def max_backtick_run(text: str) -> int:
 def key_source_files(repo: Path) -> list[Path]:
     candidates = [
         repo / "README.md",
-        repo / repo.name / "__init__.py",
-        repo / "__init__.py",
-        repo / repo.name / "core.py",
-        repo / "core.py",
-        repo / repo.name / "_modidx.py",
-        repo / "_modidx.py",
+        repo / "pyproject.toml",
     ]
+
+    for pkg in package_dirs(repo):
+        candidates.extend(
+            [
+                pkg / "__init__.py",
+                pkg / "core.py",
+                pkg / "_modidx.py",
+            ]
+        )
 
     seen: set[Path] = set()
     files: list[Path] = []

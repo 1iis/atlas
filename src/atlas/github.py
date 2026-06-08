@@ -34,7 +34,7 @@ def owner_repo_from_remote(remote: str | None) -> tuple[str, str] | None:
 
 
 def github_data(owner: str, repo: str) -> dict[str, str | None]:
-    data: dict[str, str | None] = {}
+    data: dict[str, str | None] = {"owner": owner, "repo": repo}
 
     try:
         from ghapi.all import GhApi
@@ -116,6 +116,8 @@ def github_markdown(repo: str | Path, fallback_owner: str | None = None) -> str:
         return "# GitHub\n\nNo GitHub metadata available.\n"
 
     rows = [
+        f"| Owner | {data.get('owner') or owner} |",
+        f"| Repo | {data.get('repo') or name} |",
         f"| Description | {data.get('description') or 'none'} |",
         f"| Visibility | {data.get('visibility') or 'unknown'} |",
         f"| Default branch | {data.get('default_branch') or 'unknown'} |",
